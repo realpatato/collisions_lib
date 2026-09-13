@@ -6,6 +6,7 @@
 #include "shapes.hpp"
 #include "constants.hpp"
 #include "gjk.hpp"
+#include "epa.hpp"
 
 int main() {
     const int screen_width = constants::screen_width;
@@ -17,7 +18,7 @@ int main() {
     Shape* e1 = new Ellipse(Point(-10, 125), 20, 20);
     Shape* e2 = new Ellipse(Point(10, 100), 20, 20);
 
-    std::vector<Simplex> s = get_simplexes(e1, e2);
+    std::vector<Simplex> s = gjk(e1, e2);
 
     std::vector<Point> ps1 = {Point(-30, -145), Point(10, -145), Point(10, -105), Point(-30, -105)};
     std::vector<Point> ps2 = {Point(-10, -170), Point(30, -170), Point(30, -130), Point(-10, -130)};
@@ -25,12 +26,18 @@ int main() {
     Shape* p1 = new Polygon(ps1);
     Shape* p2 = new Polygon(ps2);
 
-    std::vector<Simplex> s2 = get_simplexes(p1, p2);
+    std::vector<Simplex> s2 = gjk(p1, p2);
 
     Shape* p3 = new Polygon(Point(100, 100), 30, 5);
     Shape* p4 = new Polygon(Point(120, 75), 30, 8);
 
-    std::vector<Simplex> s3 = get_simplexes(p3, p4);
+    std::vector<Simplex> s3 = gjk(p3, p4);
+    Point p;
+    for (Simplex s : s3) {
+        p = epa(p3, p4, s);
+    }
+
+    p3->move(p);
 
     Shape* star = new Polygon(Point(-250, -125), 30, 5, 10);
 
@@ -52,7 +59,7 @@ int main() {
 
             star->draw_self();
 
-            for (Simplex s : s) {
+            for (Simplex s : s3) {
                 s.draw_self();
             }
 

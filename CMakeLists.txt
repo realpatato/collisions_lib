@@ -21,6 +21,7 @@ add_subdirectory(point)
 add_subdirectory(constants)
 add_subdirectory(shapes)
 add_subdirectory(gjk)
+add_subdirectory(epa)
 
 target_link_libraries(physics_test
     PRIVATE 
@@ -28,5 +29,6 @@ target_link_libraries(physics_test
         point_lib
         shapes_lib
         gjk_lib
+        epa_lib
         constants
 )

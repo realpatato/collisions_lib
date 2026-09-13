@@ -44,6 +44,10 @@ Point Ellipse::support(Point d) {
     return Point(h_sqd * d_x / denom, v_sqd * d_y / denom) + center;
 }
 
+void Ellipse::move(Point p) {
+    center = center + p;
+}
+
 void Ellipse::draw_self() {
     DrawEllipse((int) center.get_draw_x(), center.get_draw_y(), h_rad, v_rad, RED);
 }
@@ -164,6 +168,16 @@ std::vector<Vector2> Polygon::gen_draw_points(std::vector<Point> sp, Point c) {
         dpv2.push_back((Vector2)p);
     }
     return dpv2;
+}
+
+void Polygon::move(Point p) {
+    for (int i = 0; i < draw_points.size(); i++) {
+        if (!(i == 0 || i == draw_points.size())) {
+            points[i - 1] = points[i] + p;
+        }
+        draw_points[i].x -= p.get_x();
+        draw_points[i].y += p.get_y();
+    }
 }
 
 void Polygon::draw_self() {

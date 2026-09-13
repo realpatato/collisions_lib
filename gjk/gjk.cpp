@@ -1,7 +1,6 @@
 #include "gjk.hpp"
 
 #include <cmath>
-#include <iostream>
 
 Point triple_product(Point a, Point b, Point c) {
     Point result = b * (a * c) - a * (b * c); //dot products in parenthesis, vector multiplication, then point subtraction
@@ -58,10 +57,8 @@ bool update_simplex(Shape* A, Shape* B, Point& a, Point& b, Point& c, int& smpx_
     return true;
 }
 
-std::vector<Simplex> get_simplexes(Shape* A, Shape* B) {
+std::vector<Simplex> gjk(Shape* A, Shape* B) {
     std::vector<Simplex> simplexes = {};
-
-    std::cout << A->get_pieces().size() << std::endl; 
 
     std::vector<Shape*> A_pieces = A->get_pieces();
     std::vector<Shape*> B_pieces = B->get_pieces();
