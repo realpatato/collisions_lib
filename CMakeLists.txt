@@ -22,6 +22,7 @@ add_subdirectory(constants)
 add_subdirectory(shapes)
 add_subdirectory(gjk)
 add_subdirectory(epa)
+add_subdirectory(collision_objects)
 
 target_link_libraries(physics_test
     PRIVATE 
@@ -30,5 +31,6 @@ target_link_libraries(physics_test
         shapes_lib
         gjk_lib
         epa_lib
+        collision_objects_lib
         constants
 )

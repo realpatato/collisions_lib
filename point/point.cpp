@@ -1,10 +1,20 @@
 #include "point.hpp"
 #include "constants.hpp"
 
+#include <cmath>
 #include <raylib.h>
 
 const int half_screen_width = constants::screen_width / 2;
 const int half_screen_height = constants::screen_height / 2;
+
+Point triple_product(Point a, Point b, Point c) {
+    Point result = b * (a * c) - a * (b * c); //dot products in parenthesis, vector multiplication, then point subtraction
+    //prevent returns of 0, 0
+    if (std::abs(result.get_x()) < 1e-5f && std::abs(result.get_y()) < 1e-5f) {
+        return Point(a.get_y() * -1, a.get_x());
+    }
+    return result;
+}
 
 Point::Point(float x, float y) : 
     x(x), y(y), 

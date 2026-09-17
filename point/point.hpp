@@ -23,3 +23,5 @@ class Point {
         float get_draw_y();
         void draw_self();
 };
+
+Point triple_product(Point a, Point b, Point c);

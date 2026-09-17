@@ -171,17 +171,24 @@ std::vector<Vector2> Polygon::gen_draw_points(std::vector<Point> sp, Point c) {
 }
 
 void Polygon::move(Point p) {
+    center = center + p;
     for (int i = 0; i < draw_points.size(); i++) {
-        if (!(i == 0 || i == draw_points.size())) {
-            points[i - 1] = points[i] + p;
+        if (!(i == 0 || i == draw_points.size() - 1)) {
+            points[i - 1] = points[i - 1] + p;
         }
-        draw_points[i].x -= p.get_x();
-        draw_points[i].y += p.get_y();
+        draw_points[i].x += p.get_x();
+        draw_points[i].y -= p.get_y();
     }
 }
 
+std::vector<Vector2> Polygon::get_draw_points() {
+    return draw_points;
+}
+
 void Polygon::draw_self() {
-    DrawTriangleFan(draw_points.data(), draw_points.size(), RED);
+    for (Polygon* p : pieces) {
+        DrawTriangleFan(p->get_draw_points().data(), p->get_draw_points().size(), RED);
+    }
 }
 
 Simplex::Simplex(bool e) : exists(e) {}

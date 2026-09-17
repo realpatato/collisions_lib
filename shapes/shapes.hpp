@@ -54,6 +54,7 @@ class Polygon : public Shape {
         void move(Point p) override;
 
         std::vector<Vector2> gen_draw_points(std::vector<Point> sp, Point c);
+        std::vector<Vector2> get_draw_points();
         virtual void draw_self() override;
 };
 
